@@ -126,7 +126,7 @@ static int cb(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                     auto t2 = std::chrono::high_resolution_clock::now();
                     auto dt = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1);
 
-                    printf(" %s -> %ld ns\n", host_str.c_str(), dt.count());
+                    printf("%s -> %ld ns\n", host_str.c_str(), dt.count());
 
                     if (found) {
                         printf("BLOCKED: %s\n", host_str.c_str());
