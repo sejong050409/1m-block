@@ -126,7 +126,7 @@ static int cb(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                     auto t2 = std::chrono::high_resolution_clock::now();
                     auto dt = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1);
 
-                    printf("[Lookup] %s -> %ld ns\n", host_str.c_str(), dt.count());
+                    printf(" %s -> %ld ns\n", host_str.c_str(), dt.count());
 
                     if (found) {
                         printf("BLOCKED: %s\n", host_str.c_str());
@@ -149,7 +149,7 @@ int main(int argc, char **argv)
 
     blocked_hosts.reserve(1000000);
 
-    printf("[*] Loading CSV...\n");
+    printf("Loading CSV\n");
 
     auto load_start = std::chrono::high_resolution_clock::now();
 
@@ -158,8 +158,8 @@ int main(int argc, char **argv)
     auto load_end = std::chrono::high_resolution_clock::now();
     auto load_time = std::chrono::duration_cast<std::chrono::milliseconds>(load_end - load_start);
 
-    printf("[*] Loaded %lu sites\n", blocked_hosts.size());
-    printf("[*] Load time: %ld ms\n", load_time.count());
+    printf("Loaded %lu sites\n", blocked_hosts.size());
+    printf("Load time: %ld ms\n", load_time.count());
 
     struct nfq_handle *h;
     struct nfq_q_handle *qh;
@@ -186,7 +186,7 @@ int main(int argc, char **argv)
 
     fd = nfq_fd(h);
 
-     printf("[*] Running...\n");
+     printf("Running\n");
 
     for (;;) {
         if ((rv = recv(fd, buf, sizeof(buf), 0)) >= 0) {
