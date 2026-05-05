@@ -92,13 +92,13 @@ static int cb(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
 
         int http_len = len - ip_header_len - tcp_header_len;
 
-        char *host = strstr((char *)http, "Host:");
+        char *host = (char *)memmem(http, http_len, "Host:", 5);
 
         if (host) {
             host += 5;
 
             while (*host == ' ') host++;
-            char *end = strstr(host, "\r\n");
+            char *end = (char *)memmem(host, http + http_len - (unsigned char *)host, "\r\n", 2);
 
             if (end) {
                 char domain[256] = {0};
